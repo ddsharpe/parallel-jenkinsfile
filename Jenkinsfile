@@ -42,7 +42,6 @@ pipeline {
         }
         stage ('AfterParallel') {
             steps {
-                sh 'echo "All matrix should be done"'
                 junit 'target/surefire-reports/*.xml'
             }
         }
