@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("SetB")
 class SetB1Test {
-  private final long DURATION = 200;
+  private final long DURATION = 2000;
 
   @Test
   void test01() throws Exception {

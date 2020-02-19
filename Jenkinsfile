@@ -24,11 +24,6 @@ pipeline {
             steps {
                 sh 'mvn test -Dtest.groups="SetA,SetB,SetC"'
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
         }
         stage ('ParallelTest') {
             failFast true
@@ -36,11 +31,6 @@ pipeline {
                 stage('Parallel Test A') {
                     steps {
                         sh 'mvn test -Dtest.groups="SetA"'
-                    }
-                    post {
-                        always {
-                            junit 'target/surefire-reports/*.xml'
-                        }
                     }
                 }
                 stage('Parallel Test B') {
@@ -69,7 +59,7 @@ pipeline {
                     }
                 }
                 stages {
-                    stage('Test${TESTGROUP}') {
+                    stage('Test') {
                         steps {
                             sh 'mvn test -Dtest.groups="${TESTGROUP}"'
                         }
@@ -80,6 +70,7 @@ pipeline {
         stage ('AfterMatrix') {
             steps {
                 sh 'echo "All matrix should be done"'
+                junit 'target/surefire-reports/*.xml'
             }
         }
     }
