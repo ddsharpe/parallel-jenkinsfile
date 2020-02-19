@@ -33,17 +33,17 @@ pipeline {
         stage ('ParallelTest') {
             parallel {
                 stage('Parallel Test A') {
-                    step {
+                    steps {
                         sh 'mvn test -Dtest.groups="SetA"'
                     }
                 }
                 stage('Parallel Test B') {
-                    step {
+                    steps {
                         sh 'mvn test -Dtest.groups="SetB"'
                     }
                 }
                 stage('Parallel Test C') {
-                    step {
+                    steps {
                         sh 'mvn test -Dtest.groups="SetC"'
                     }
                 }
