@@ -20,9 +20,9 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage ('Test') {
+        stage ('SingleThreadedTest') {
             steps {
-                sh 'mvn test'
+                sh 'mvn test -Dtest.groups="SetA,SetB,SetC"'
             }
             post {
                 always {
