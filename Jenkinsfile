@@ -69,7 +69,7 @@ pipeline {
                     }
                 }
                 stages {
-                    stage('Test${TEST-GROUP}') {
+                    stage('Test${TESTGROUP}') {
                         steps {
                             sh 'mvn test -Dtest.groups="${TESTGROUP}"'
                         }
@@ -77,7 +77,7 @@ pipeline {
                 }
             }
         }
-        stage ('AfterParallel') {
+        stage ('AfterMatrix') {
             steps {
                 sh 'echo "All matrix should be done"'
             }
