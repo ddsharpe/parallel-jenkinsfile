@@ -20,36 +20,6 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage ('SingleThreadedTest') {
-            steps {
-                sh 'mvn test -Dtest.groups="SetA,SetB,SetC"'
-            }
-        }
-        stage ('ParallelTest') {
-            failFast true
-            parallel {
-                stage('Parallel Test A') {
-                    steps {
-                        sh 'mvn test -Dtest.groups="SetA"'
-                    }
-                }
-                stage('Parallel Test B') {
-                    steps {
-                        sh 'mvn test -Dtest.groups="SetB"'
-                    }
-                }
-                stage('Parallel Test C') {
-                    steps {
-                        sh 'mvn test -Dtest.groups="SetC"'
-                    }
-                }
-            }
-        }
-        stage ('AfterParallel') {
-            steps {
-                sh 'echo "All parallel should be done"'
-            }
-        }
         stage ('MatrixParallel') {
             matrix {
                 axes {
