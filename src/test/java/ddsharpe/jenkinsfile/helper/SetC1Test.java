@@ -12,31 +12,31 @@ class SetC1Test {
   @Test
   void test01() throws Exception {
     Thread.sleep(DURATION);
-    assertEquals("test", "test", "Failed string compare");
+    assertEquals(2, 1 + 1);
   }
 
   @Test
   void test02() throws Exception {
     Thread.sleep(DURATION);
-    assertEquals("test", "test", "Failed string compare");
+    assertEquals(2, 1 + 1);
   }
 
   @Test
   void test03() throws Exception {
     Thread.sleep(DURATION);
-    assertEquals("test", "test", "Failed string compare");
+    assertEquals(2, 1 + 1);
   }
 
   @Test
   void test04() throws Exception {
     Thread.sleep(DURATION);
-    assertEquals("test", "test", "Failed string compare");
+    assertEquals(2, 1 + 1);
   }
 
   @Test
   void test05() throws Exception {
     Thread.sleep(DURATION);
-    assertEquals("test", "test", "Failed string compare");
+    assertEquals(2, 1 + 1);
   }
 
 }

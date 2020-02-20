@@ -5,37 +5,32 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Tag("SetA")
-class SetA1Test {
-  private final long DURATION = 2000;
+@Tag("unit")
+class Set01Test {
 
   @Test
   void test01() throws Exception {
-    Thread.sleep(DURATION);
     assertEquals(2, 1 + 1);
   }
 
+  @Tag("failing")
   @Test
   void test02() throws Exception {
-    Thread.sleep(DURATION);
-    assertEquals(2, 1 + 1);
+    assertEquals(2, 3);
   }
 
   @Test
   void test03() throws Exception {
-    Thread.sleep(DURATION);
     assertEquals(2, 1 + 1);
   }
 
   @Test
   void test04() throws Exception {
-    Thread.sleep(DURATION);
     assertEquals(2, 1 + 1);
   }
 
   @Test
   void test05() throws Exception {
-    Thread.sleep(DURATION);
     assertEquals(2, 1 + 1);
   }
 

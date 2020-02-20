@@ -12,7 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <test.groups>SetA</test.groups>
+    <test.groups>unit</test.groups>
   </properties>
 
   <dependencies>
@@ -41,7 +41,7 @@
           <!-- include tags -->
           <groups>${test.groups}</groups>
           <!-- exclude tags -->
-          <excludedGroups>slow</excludedGroups>
+          <excludedGroups>slow,failing</excludedGroups>
         </configuration>
       </plugin>
 
