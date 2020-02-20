@@ -1,5 +1,12 @@
+// Documentation for Jenkinsfile https://jenkins.io/doc/book/pipeline/jenkinsfile/
+
 pipeline {
     agent any
+
+    triggers {
+        cron('H H(0-3) * * 1-5')
+    }
+
     tools {
         maven 'maven-3.6.0'
         jdk 'jdk11'
