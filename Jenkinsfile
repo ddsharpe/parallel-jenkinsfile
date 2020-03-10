@@ -64,7 +64,12 @@ pipeline {
         }
         stage ('AfterMatrix') {
             when {
-                triggeredBy 'TimerTrigger'
+                allOf {
+                    triggeredBy 'TimerTrigger'
+                    not {
+                        changelog '\\[skip-ci\\]'
+                    }
+                }
             }
             steps {
                 sh 'echo "All matrix should be done"'
