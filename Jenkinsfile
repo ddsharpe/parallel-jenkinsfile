@@ -23,6 +23,11 @@ pipeline {
             }
         }
         stage ('Test') {
+            when {
+                not {
+                    changelog '\\[skip-ci\\]'
+                }
+            }
             steps {
                 sh 'mvn test'
             }
@@ -30,6 +35,40 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
+            }
+        }
+        stage ('MatrixParallel') {
+            when {
+                allOf {
+                    triggeredBy 'TimerTrigger'
+                    not {
+                        changelog '\\[skip-ci\\]'
+                    }
+                }
+            }
+            matrix {
+                axes {
+                    axis {
+                        name 'TESTGROUP'
+                        values 'SetA', 'SetB', 'SetC'
+                    }
+                }
+                stages {
+                    stage('Test') {
+                        steps {
+                            sh 'mvn test -Dtest.groups="${TESTGROUP}"'
+                        }
+                    }
+                }
+            }
+        }
+        stage ('AfterMatrix') {
+            when {
+                triggeredBy 'TimerTrigger'
+            }
+            steps {
+                sh 'echo "All matrix should be done"'
+                junit 'target/surefire-reports/*.xml'
             }
         }
     }
