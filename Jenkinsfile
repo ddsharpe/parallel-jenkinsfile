@@ -92,7 +92,9 @@ pipeline {
             when {
                 tag "release-*"
             }
-            sh 'echo Deploy artifact to a repo'
+            steps {
+                sh 'echo Deploy artifact to a repo'
+            }
         }
     }
 }
