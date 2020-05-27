@@ -2,6 +2,12 @@
 
 pipeline {
     agent any
+
+    triggers {
+        // timer trigger for "nightly build"
+        cron('H H(0-3) * * 1-5')
+    }
+
     tools {
         // Jenkins should install these tools into the VM (if not already there)
         maven 'maven-3.6.0'
