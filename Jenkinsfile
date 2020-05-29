@@ -4,8 +4,8 @@ pipeline {
     agent any
 
     triggers {
-        // timer trigger for "nightly build"
-        cron('H H(0-3) * * 1-5')
+        // timer trigger for "nightly build" on master branch
+        cron( env.BRANCH_NAME.equals('master') ? 'H H(0-3) * * 1-5' : '')
     }
 
     tools {
