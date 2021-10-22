@@ -20,22 +20,22 @@ pipeline {
                 }
             }
             steps {
-                echo ${version_number}
+                echo "${version_number}"
                 script {
                     env.version = ${version_number} + "-beta-"
                     version_number = "alpha"
                 }
-                echo ${version_number}
-                echo ${version}
+                echo "${version_number}"
+                echo "${version}"
             }
          }
 
         stage ('stage 2') {
             // always runs this stage
             steps {
-                echo ${version_number}
-                echo ${version}
-                echo ${env.version_number}
+                echo "${version_number}"
+                echo "${version}"
+                echo "${env.version_number}"
             }
         }
     }
