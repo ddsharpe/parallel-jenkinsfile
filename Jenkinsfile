@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo "${version_number}"
                 script {
-                    env.version = ${version_number} + "-beta-"
+                    env.version = version_number + "-beta-"
                     version_number = "alpha"
                 }
                 echo "${version_number}"
