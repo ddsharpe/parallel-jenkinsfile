@@ -13,28 +13,29 @@ pipeline {
     }
 
     stages {
-         stage ('Release Version') {
+         stage ('stage 1') {
             when {
                 not {
                     tag 'release-*'
                 }
             }
             steps {
-                sh 'echo $version_number'
+                echo ${version_number}
                 script {
-                    env.version_number = "$version_number"+"-beta-"
-                    println env.version_number
+                    env.version = ${version_number} + "-beta-"
+                    version_number = "alpha"
                 }
-                sh 'echo $version_number'
+                echo ${version_number}
+                echo ${version}
             }
          }
 
-        stage ('check value') {
+        stage ('stage 2') {
             // always runs this stage
             steps {
-                sh '''
-                    echo $version_number
-                '''
+                echo ${version_number}
+                echo ${version}
+                echo ${env.version_number}
             }
         }
     }
