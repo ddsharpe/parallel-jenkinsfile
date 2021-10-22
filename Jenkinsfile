@@ -23,7 +23,7 @@ pipeline {
                 sh 'echo $version_number'
                 script {
                     env.version_number = "$version_number"+"-beta-"
-                    echo $version_number
+                    println env.version_number
                 }
                 sh 'echo $version_number'
             }
