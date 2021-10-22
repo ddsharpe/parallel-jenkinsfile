@@ -22,7 +22,8 @@ pipeline {
             steps {
                 sh 'echo $version_number'
                 script {
-                    version_number = "$version_number"+"-beta-"
+                    env.version_number = "$version_number"+"-beta-"
+                    echo $version_number
                 }
                 sh 'echo $version_number'
             }
