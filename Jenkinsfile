@@ -19,11 +19,13 @@ pipeline {
                     tag 'release-*'
                 }
             }
-            sh 'echo $version_number'
-            script {
-                version_number = "$version_number"+"-beta-"
+            steps {
+                sh 'echo $version_number'
+                script {
+                    version_number = "$version_number"+"-beta-"
+                }
+                sh 'echo $version_number'
             }
-            sh 'echo $version_number'
          }
 
         stage ('check value') {
