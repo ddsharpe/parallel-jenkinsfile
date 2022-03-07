@@ -4,6 +4,7 @@ pipeline {
     agent any
     environment {
         version_number="1.0.1"
+        my_path="${WORKSPACE}/bin:/usr/bin"
     }
 
     tools {
@@ -36,6 +37,7 @@ pipeline {
                 echo "${version_number}"
                 echo "${version}"
                 echo "${env.version_number}"
+                echo "${my_path}"
             }
         }
     }
