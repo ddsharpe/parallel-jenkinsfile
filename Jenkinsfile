@@ -53,5 +53,13 @@ pipeline {
                 echo "${my_path}"
             }
         }
+        stage ('stage 3') {
+            when {
+                not {
+                    isDocOnlyChanges()
+                }
+                echo "Execute integration tests here"
+            }
+        }
     }
 }
