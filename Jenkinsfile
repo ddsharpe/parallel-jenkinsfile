@@ -1,16 +1,25 @@
 // Documentation for Jenkinsfile https://jenkins.io/doc/book/pipeline/jenkinsfile/
 def isDocOnlyChanges() {
-    result = false
     for (changeLogSet in currentBuild.changeSets) {
         for (entry in changeLogSet.getItems()) { // for each commit in the detected changes
             echo "found commit ${entry.msg} by ${entry.author}"
             for (file in entry.getAffectedFiles()) {
+                filename = file.getPath();
                 echo "found file in entry: ${file.getPath()} type: ${file.editType.name}"
+                // if the file is part of the documentation set, skip it
+                if (!filename.startsWith('documentation/')) {
+                    // if the file is a markdown file, skip it
+                    if (!filename.endsWith(".md")) {
+                        // since the two previous conditions were not met, this change includes more than documentation
+                        println filename
+                        return false
+                    }
+                }
             }
         }
     }
 
-    return result
+    return true
 }
 
 pipeline {
