@@ -1,4 +1,17 @@
 // Documentation for Jenkinsfile https://jenkins.io/doc/book/pipeline/jenkinsfile/
+def isDocOnlyChanges() {
+    result = false
+    for (changeLogSet in currentBuild.changeSets) {
+        for (entry in changeLogSet.getItems()) { // for each commit in the detected changes
+            echo "found commit ${entry.msg} by ${entry.author}"
+            for (file in entry.getAffectedFiles()) {
+                echo "found file in entry: ${file.getPath()} type: ${file.editType.name}"
+            }
+        }
+    }
+
+    return result
+}
 
 pipeline {
     agent any
