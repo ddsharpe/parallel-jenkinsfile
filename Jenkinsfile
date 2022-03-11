@@ -56,8 +56,10 @@ pipeline {
         stage ('stage 3') {
             when {
                 not {
-                    isDocOnlyChanges()
+                    expression { isDocOnlyChanges() }
                 }
+            }
+            steps {
                 echo "Execute integration tests here"
             }
         }
