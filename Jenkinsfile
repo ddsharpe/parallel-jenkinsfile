@@ -108,9 +108,9 @@ pipeline {
 
 def printLatestChanges() {
     print "Changes in last 24 hours:"
-    def commitsResponse = new URL("https://api.github.com/repos/oracle/weblogic-image-tool/commits").openConnection();
-    if(commitsResponse.getResponseCode().equals(200)) {
-        def json = readJSON get.getInputStream().getText();
+    def commitsResponse = httpRequest "https://api.github.com/repos/oracle/weblogic-image-tool/commits";
+    if(commitsResponse.status == 200) {
+        def json = readJSON commitsResponse.content;
         print json[0]
     }
 }
