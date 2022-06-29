@@ -1,4 +1,5 @@
 // Documentation for Jenkinsfile https://jenkins.io/doc/book/pipeline/jenkinsfile/
+import groovy.json.JsonSlurper
 
 pipeline {
     agent any
@@ -107,10 +108,18 @@ pipeline {
 }
 
 def printLatestChanges() {
+    def projectMap = [ 'WIT': 'https://api.github.com/repos/oracle/weblogic-image-tool/commits',
+                       'WDT': 'https://api.github.com/repos/oracle/weblogic-deploy-tooling/commits']
     print "Changes in last 24 hours:"
-    def commitsResponse = httpRequest "https://api.github.com/repos/oracle/weblogic-image-tool/commits";
-    if(commitsResponse.status == 200) {
-        def json = readJSON commitsResponse.content;
-        print json[0]
+    for ( project in projectMap ) {
+        def projectCommitsResp = httpRequest project.value
+        if(projectCommitsResp.getStatus() == 200) {
+            def projectCommits = new JsonSlurper().parseText( projectCommitsResp.getContent() )
+            projectCommits.each{
+                print project.key + ' : ' + it.commit.message
+            }
+        } else {
+            print 'Failed to get commits for ' + project.key
+        }
     }
 }
