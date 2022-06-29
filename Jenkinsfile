@@ -23,6 +23,7 @@ pipeline {
                     echo "M2_HOME = ${M2_HOME}"
                     mvn --version
                 '''
+                printLatestChanges()
             }
         }
         stage ('Build') {
@@ -103,4 +104,8 @@ pipeline {
             }
         }
     }
+}
+
+def printLatestChanges() {
+    print "Changes in last 24 hours:"
 }
