@@ -113,9 +113,9 @@ def printLatestChanges() {
     def projectMap = [ 'WIT': 'https://api.github.com/repos/oracle/weblogic-image-tool/commits',
                        'WDT': 'https://api.github.com/repos/oracle/weblogic-deploy-tooling/commits']
     def result = new StringBuilder().append("Project changes in last 2 days:")
-    def since = Instant.now().minus(2, ChronoUnit.DAYS)
+    def since = Instant.now().minus(2, ChronoUnit.DAYS).toString()
     for ( def project in projectMap.entrySet() ) {
-        def projectCommitsResp = httpRequest project.value + '?' + since.toString()
+        def projectCommitsResp = httpRequest project.value + '?since=' + since
         if(projectCommitsResp.getStatus() == 200) {
             def projectCommits = new JsonSlurper().parseText( projectCommitsResp.getContent() )
             projectCommits.each{
