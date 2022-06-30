@@ -110,16 +110,18 @@ pipeline {
 def printLatestChanges() {
     def projectMap = [ 'WIT': 'https://api.github.com/repos/oracle/weblogic-image-tool/commits',
                        'WDT': 'https://api.github.com/repos/oracle/weblogic-deploy-tooling/commits']
-    print "Changes in last 24 hours:"
-    for ( project in projectMap ) {
-        def projectCommitsResp = httpRequest project.value
+    def result = new StringBuilder().append("Project changes in last 2 days:")
+    def since = Instant.now().minus(2, ChronoUnit.DAYS)
+    for ( def project in projectMap.entrySet() ) {
+        def projectCommitsResp = httpRequest project.value + '?' + since.toString()
         if(projectCommitsResp.getStatus() == 200) {
             def projectCommits = new JsonSlurper().parseText( projectCommitsResp.getContent() )
             projectCommits.each{
-                print project.key + ' : ' + it.commit.message
+                result.append('\n$project.key : $it.commit.message')
             }
         } else {
-            print 'Failed to get commits for ' + project.key
+            result.append('\n$project.key : HTTP ERROR, failed to get commits for $project.key')
         }
     }
+    print result
 }
