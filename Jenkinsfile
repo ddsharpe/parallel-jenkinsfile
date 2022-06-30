@@ -119,10 +119,10 @@ def printLatestChanges() {
         if(projectCommitsResp.getStatus() == 200) {
             def projectCommits = new JsonSlurper().parseText( projectCommitsResp.getContent() )
             projectCommits.each{
-                result.append('\n$project.key : $it.commit.message')
+                result.append('\n').append(project.key).append(' : ').append(it.commit.message)
             }
         } else {
-            result.append('\n$project.key : HTTP ERROR, failed to get commits for $project.key')
+            result.append('\n').append(project.key).append(' : HTTP ERROR, failed to get commits')
         }
     }
     print result
